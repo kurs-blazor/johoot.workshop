@@ -20,7 +20,6 @@ namespace Johoot.Workshop.Api
     {
       services.AddControllers();
       services.AddRazorPages();
-      services.AddSingleton<IRepository, Repository>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
