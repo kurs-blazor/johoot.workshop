@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="DataDto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Johoot.Workshop.Infrastructure.Domain\Johoot.Workshop.Infrastructure.Domain.csproj" />
+    <ProjectReference Include="..\Johoot.Workshop.Infrastructure\Johoot.Workshop.Infrastructure.csproj" />
+    <ProjectReference Include="..\Johoot.Workshop.Share\Johoot.Workshop.Share.csproj" />
   </ItemGroup>
 
 

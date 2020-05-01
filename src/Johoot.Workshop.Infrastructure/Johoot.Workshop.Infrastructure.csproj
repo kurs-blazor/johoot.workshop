@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Johoot.Workshop.Infrastructure.Domain\Johoot.Workshop.Infrastructure.Domain.csproj" />
+    <ProjectReference Include="..\Johoot.Workshop.Share\Johoot.Workshop.Share.csproj" />
+  </ItemGroup>
+
+</Project>
