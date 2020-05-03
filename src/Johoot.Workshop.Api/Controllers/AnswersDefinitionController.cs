@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace Johoot.Api.Controllers
 {
   [ApiController]
-  [Route(nameof(Answer))]
-  public class AnswerDefinitionController : ControllerBase
+  [Route("[controller]")]
+  public class AnswersDefinitionController : ControllerBase
   {
-    private readonly ILogger<AnswerDefinitionController> _logger;
+    private readonly ILogger<AnswersDefinitionController> _logger;
     private readonly IAnswerRepository _repository;
 
-    public AnswerDefinitionController(
-        ILogger<AnswerDefinitionController> logger,
+    public AnswersDefinitionController(
+        ILogger<AnswersDefinitionController> logger,
         IAnswerRepository repository)
     {
       _logger = logger;
