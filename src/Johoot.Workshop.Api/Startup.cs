@@ -2,10 +2,12 @@ using Johoot.Workshop.Infrastructure;
 using Johoot.Workshop.Infrastructure.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Globalization;
 
 namespace Johoot.Workshop.Api
 {
@@ -26,6 +28,11 @@ namespace Johoot.Workshop.Api
       {
         c.SwaggerDoc("v1",
           new OpenApiInfo { Title = "Johoot.Workshop", Version = "v1" });
+      });
+
+      services.AddDbContext<JohootWorkshopContext>(cfg =>
+      {
+        cfg.UseSqlServer(Configuration.GetConnectionString("DefaultDbConnection"));
       });
 
       services.AddScoped<IQuestionRepository, QuestionRepository>();
