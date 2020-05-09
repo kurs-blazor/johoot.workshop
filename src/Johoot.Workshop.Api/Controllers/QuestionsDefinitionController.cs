@@ -64,7 +64,7 @@ namespace Johoot.Workshop.Api.Controllers
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(long id, QuestionDto item)
     {
-      if (id != item.Id)
+      if (id != item?.Id)
       {
         return BadRequest();
       }

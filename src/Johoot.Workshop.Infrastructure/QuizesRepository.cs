@@ -1,6 +1,6 @@
 ﻿using Johoot.Data;
 using Johoot.Workshop.Infrastructure.Domain;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,24 +8,72 @@ namespace Johoot.Workshop.Infrastructure
 {
   public class QuizesRepository : IQuizesRepository
   {
-    public Task<Quize> Create(Quize q)
+    private readonly JohootWorkshopContext _joContext;
+
+    public QuizesRepository(JohootWorkshopContext context)
     {
-      throw new NotImplementedException();
+      _joContext = context;
     }
 
-    public Task<Quize> FindById(long id, bool includeAll = true)
+    public async Task<Quize> Create(Quize item)
     {
-      throw new NotImplementedException();
+      var ret = _joContext.Quizes.Add(item);
+      await _joContext.SaveChangesAsync();
+      return ret.Entity;
     }
 
-    public Task<IList<Quize>> GetAll(bool includeAll = true)
+    public async Task<Quize> FindById(long id, bool includeAll)
     {
-      throw new NotImplementedException();
+      if (includeAll)
+      {
+        return
+           await _joContext.Quizes
+             .Include(q => q.Questions)
+             .ThenInclude(q => q.Answers)
+             .FirstOrDefaultAsync(q => q.Id == id);
+      }
+      else
+      {
+        return
+            await _joContext.Quizes.FindAsync(id);
+
+      }
     }
 
-    public Task<Quize> Update(long id, Quize q)
+    public async Task<IList<Quize>> GetAll(bool includeAll)
     {
-      throw new NotImplementedException();
+      if (includeAll)
+      {
+        return
+          await _joContext
+          .Quizes
+          .Include(q => q.Questions)
+          .ToListAsync();
+      }
+      else
+      {
+        return
+          await _joContext
+          .Quizes
+          .ToListAsync();
+      }
+    }
+
+    public async Task<Quize> Update(long id, Quize item)
+    {
+      if (item is null)
+      {
+        return null;
+      }
+
+      var exist = await FindById(id, false);
+      if (exist != null)
+      {
+        _joContext.Entry(exist).CurrentValues.SetValues(item);
+        _joContext.SaveChanges();
+      }
+
+      return exist;
     }
   }
 }

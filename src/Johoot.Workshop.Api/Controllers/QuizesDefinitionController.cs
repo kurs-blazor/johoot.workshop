@@ -2,18 +2,23 @@
 using Johoot.Workshop.Api.DataDto;
 using Johoot.Workshop.Infrastructure.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Johoot.Workshop.Api.Controllers
 {
-  [Route("[controller]")]
   [ApiController]
-  public class QuizesController : ControllerBase
+  [Route("[controller]")]
+  public class QuizesDefinitionController : ControllerBase
   {
     private readonly IQuizesRepository _quizesRepository;
-    public QuizesController(IQuizesRepository quizesRepository)
+    private readonly ILogger<QuestionsDefinitionController> _logger;
+    public QuizesDefinitionController(
+        ILogger<QuestionsDefinitionController> logger, 
+        IQuizesRepository quizesRepository)
     {
+      _logger = logger;
       _quizesRepository = quizesRepository;
     }
 
@@ -30,7 +35,7 @@ namespace Johoot.Workshop.Api.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<Quize>> Post([FromBody] QuizeDto item)
+    public async Task<ActionResult<Quize>> Post(QuizeDto item)
     {
       var q = new Quize
       {
@@ -48,9 +53,9 @@ namespace Johoot.Workshop.Api.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(long id, [FromBody] QuizeDto item)
+    public async Task<IActionResult> Put(long id, QuizeDto item)
     {
-      if (id != item.Id)
+      if (id != item?.Id)
       {
         return BadRequest();
       }

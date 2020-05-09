@@ -1,36 +1,77 @@
 ﻿using Johoot.Data;
 using Johoot.Workshop.Infrastructure.Domain;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Johoot.Workshop.Infrastructure
 {
-  public class QuestionRepository : IQuestionRepository
+  public class QuestionRepository : GenericRepository<Question>, IQuestionRepository
   {
-    public Task<Question> Create(Question item, long quizeId)
+    private readonly JohootWorkshopContext _joContext;
+
+    public QuestionRepository(JohootWorkshopContext context) : base(context)
     {
-      throw new NotImplementedException();
+      _joContext = context;
     }
 
-    public Task<Question> FindById(long id)
+    public async Task<Question> Create(Question item, long quizeId)
     {
-      throw new NotImplementedException();
+      item.Quize = _joContext.Quizes.Find(quizeId);
+      return await base.AddAsyn(item);
     }
 
-    public Task<IList<Question>> FindByQuizeId(long quizeId, bool includeAll = true)
+    public async Task<Question> FindById(long questionId)
     {
-      throw new NotImplementedException();
+      return await base.FindAsync(q => q.Id == questionId);
     }
 
-    public Task<ICollection<Question>> GetAll(bool includeAll = true)
+    public async Task<Question> Update(Question item, long id)
     {
-      throw new NotImplementedException();
+      return await base.UpdateAsync(item, id);
     }
 
-    public Task<Question> Update(Question item, long id)
+    public async Task<IList<Question>> FindByQuizeId(long quizeId, bool includeAll)
     {
-      throw new NotImplementedException();
+      if (includeAll)
+      {
+        return
+          await _joContext
+          .Questions
+          .Include(q => q.Quize)
+          .Include(q => q.Answers)
+          .Where(q => q.Quize.Id == quizeId)
+          .ToListAsync();
+      }
+      else
+      {
+        return
+          await _joContext
+          .Questions
+          .Where(q => q.Quize.Id == quizeId)
+          .ToListAsync();
+      }
+    }
+
+    public async Task<ICollection<Question>> GetAll(bool includeAll)
+    {
+      if (includeAll)
+      {
+        return
+          await _joContext
+          .Questions
+          .Include(q => q.Quize)
+          .Include(q => q.Answers)
+          .ToListAsync();
+      }
+      else
+      {
+        return
+          await _joContext
+          .Questions
+          .ToListAsync();
+      }
     }
   }
 }

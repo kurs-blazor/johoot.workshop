@@ -1,36 +1,47 @@
 ﻿using Johoot.Data;
 using Johoot.Workshop.Infrastructure.Domain;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Johoot.Workshop.Infrastructure
 {
-  public class AnswerRepository : IAnswerRepository
+  public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
   {
-    public Task<Answer> Create(Answer item, long questionId)
+    private readonly JohootWorkshopContext _joContext;
+
+    public AnswerRepository(JohootWorkshopContext context) : base(context)
     {
-      throw new NotImplementedException();
+      _joContext = context;
     }
 
-    public Task<Answer> FindById(long id)
+    public async Task<Answer> Create(Answer item, long questionId)
     {
-      throw new NotImplementedException();
+      item.Question = await _joContext.Questions.FindAsync(questionId);
+      return await base.AddAsyn(item);
     }
 
-    public Task<IList<Answer>> FindByQuestionId(long questionId)
+    public async Task<Answer> FindById(long id)
     {
-      throw new NotImplementedException();
+      return await base.FindAsync(q => q.Id == id);
     }
 
-    public Task<ICollection<Answer>> GetAll()
+    public async Task<Answer> Update(Answer item, long id)
     {
-      throw new NotImplementedException();
+      return await base.UpdateAsync(item, id);
     }
 
-    public Task<Answer> Update(Answer item, long id)
+    public async Task<ICollection<Answer>> GetAll()
     {
-      throw new NotImplementedException();
+      return await base.GetAllAsync();
+    }
+
+    public async Task<IList<Answer>> FindByQuestionId(long questionId)
+    {
+      return await _joContext.Answers
+           .Where(q => q.Question.Id == questionId)
+           .ToListAsync();
     }
   }
 }
