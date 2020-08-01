@@ -1,0 +1,42 @@
+﻿@page "/quizeoverview"
+@inherits QuizeOverviewBase
+
+  <h1 class="page-title">All quizes</h1>
+
+  @if (Quizes == null)
+  {
+    <p><em>Loading...</em></p>
+  }
+  else
+  {
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Question count</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var quize in Quizes)
+        {
+          <tr>
+            <td></td>
+            <td>@quize.Name</td>
+            <td>@quize.Description</td>
+            <td>@(quize.Questions?.Count ?? 0)</td>
+            <td>
+              <a href="@($"quizedetail/{quize.Id}")" class="btn btn-primary table-btn">
+                <i class="fas fa-info-circle"></i>
+              </a>
+              <a href="@($"quizeedit/{quize.Id}")" class="btn btn-primary table-btn">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }

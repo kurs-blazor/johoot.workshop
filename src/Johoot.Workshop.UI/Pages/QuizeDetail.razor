@@ -1,0 +1,43 @@
+﻿@page "/quizedetail/{quizeId:int}"
+@inherits QuizeDetailBase
+
+<div class="col-12 row">
+  <div class="col-11">
+
+    <h1 class="page-title">Details for Quize @Quize.Name </h1>
+  </div>
+  <div class="col-1">
+    <a href="@($"quizeedit/{Quize.Id}")" class="btn btn-primary table-btn">
+      <i class="fas fa-edit"></i>
+    </a>
+    <div class="alert"></div>
+  </div>
+</div>
+
+<div class="col-12 row">
+  <div class="col-1">
+
+  </div>
+  <div class="col-11 row">
+    <div class="col-xs-12 col-sm-8">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Quize Id</label>
+        <div class="col-sm-8">
+          <label type="text" readonly class="form-control-plaintext">@Quize.Id</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Description</label>
+        <div class="col-sm-8">
+          <label type="text" class="form-control-plaintext">@Quize.Description</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Questions count </label>
+        <div class="col-sm-8">
+          <label type="text" class="form-control-plaintext">@Quize.Questions?.Count</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

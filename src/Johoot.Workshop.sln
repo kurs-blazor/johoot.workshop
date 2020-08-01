@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Johoot.Workshop.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Johoot.Workshop.Infrastructure.Domain", "Johoot.Workshop.Infrastructure.Domain\Johoot.Workshop.Infrastructure.Domain.csproj", "{97D871FD-3548-4CA7-8D30-F2352496099A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Johoot.Workshop.UI", "Johoot.Workshop.UI\Johoot.Workshop.UI.csproj", "{999B0C8D-7EC2-41F3-AE6A-0A12183B5071}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Johoot.Workshop.UI", "Johoot.Workshop.UI\Johoot.Workshop.UI.csproj", "{999B0C8D-7EC2-41F3-AE6A-0A12183B5071}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
