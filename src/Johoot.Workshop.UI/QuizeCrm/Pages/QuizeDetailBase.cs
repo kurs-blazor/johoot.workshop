@@ -1,7 +1,7 @@
 ﻿using Johoot.Data;
 using Microsoft.AspNetCore.Components;
 
-namespace Johoot.Workshop.UI.Pages
+namespace Johoot.QuizeCrm.Pages
 {
   public class QuizeDetailBase : ComponentBase
   {

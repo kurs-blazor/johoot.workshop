@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Johoot.Workshop.UI.QuizeCrm.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,9 @@ namespace Johoot.Workshop.UI
     {
       services.AddRazorPages();
       services.AddServerSideBlazor();
+      var host = new Uri("https://localhost:44373");  
+      services.AddHttpClient<IQuizeService, QuizeService>(
+        client =>client.BaseAddress = new Uri(host, "QuizesDefinition"));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
