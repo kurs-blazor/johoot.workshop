@@ -1,23 +1,22 @@
-﻿using Johoot.Data;
+﻿using Johoot.Workshop.UI.QuizeCrm.Services;
+using Johoot.Workshop.UI.QuizeCrm.ViewModels;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Johoot.QuizeCrm.Pages
 {
   public class QuizeDetailBase : ComponentBase
   {
-    [Parameter]
-    public int QuizeId { get; set; }
-    public Quize Quize { get; set; } = new Quize();
+    [Inject]
+    public IQuizeService QuizeService { get; set; }
 
-    protected override void OnInitialized()
+    [Parameter]
+    public long QuizeId { get; set; }
+    public QuizeViewModel Quize { get; set; } = new QuizeViewModel();
+
+    protected override async Task OnInitializedAsync()
     {
-      base.OnInitialized();
-      Quize = new Quize
-      {
-        Description = "Simulated quize description",
-        Id = 1,
-        Name = "First Quize"
-      };
+      Quize = await QuizeService.GetById(QuizeId);
     }
   }
 }

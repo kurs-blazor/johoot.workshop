@@ -1,0 +1,43 @@
+﻿@page "/quizeedit/{quizeId}"
+@inherits QuizeEditBase
+
+<div class="col-12 row">
+  <div class="col-11">
+    @if (!Saved)
+    {
+      @if (Quize.Id > 0)
+      {
+        <h1 class="page-title">Details for @Quize?.Name </h1>
+      }
+      else
+      {
+        <h1 class="page-title">Create new Quize</h1>
+      }
+      <div class="alert @StatusClass">@Message</div>
+
+      <EditForm Model="@Quize" OnValidSubmit="@HandleValidSubmit">
+
+
+        <div class="form-group row">
+          <label for="name" class="col-sm-3">Name: </label>
+          <InputText id="name" @bind-Value="@Quize.Name" class="form-control col-sm-8" placeholder="Enter name"></InputText>
+
+        </div>
+
+        <div class="form-group row">
+          <label for="descript" class="col-sm-3">Description: </label>
+          <InputText id="descript" class="form-control col-sm-8" @bind-Value="@Quize.Description" placeholder="Enter description"></InputText>
+
+        </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save</button>
+
+      </EditForm>
+    }
+    else
+    {
+      <div class="alert @StatusClass">@Message</div>
+      <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
+    }
+  </div>
+</div>
