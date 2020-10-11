@@ -30,9 +30,9 @@ namespace Johoot.Workshop.Api.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Question>> Get(long id)
+    public async Task<ActionResult<Question>> Get(long id, bool includeAll = true)
     {
-      return Ok(await _repository.FindById(id));
+      return Ok(await _repository.FindById(id,includeAll));
     }
 
     [HttpGet("find/{quizeId}")]

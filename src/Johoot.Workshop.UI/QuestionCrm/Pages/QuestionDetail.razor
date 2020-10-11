@@ -1,0 +1,98 @@
+﻿@page "/questiondetail/{questionId:long}"
+@inherits QuestionDetailBase
+
+<div class="col-12 row">
+  <div class="col-11">
+
+    <h1 class="page-title">Details for Question @Question.Id </h1>
+  </div>
+  <div class="col-1">
+    <a href="@($"questionedit/{Question.Id}")" class="btn btn-primary table-btn">
+      <i class="fas fa-edit"></i>
+    </a>
+    <div class="alert"></div>
+  </div>
+</div>
+
+<div class="col-12 row">
+  <div class="col-1">
+
+  </div>
+  <div class="col-11 row">
+    <div class="col-xs-12 col-sm-8">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Question Id</label>
+        <div class="col-sm-8">
+          <label type="text" readonly class="form-control-plaintext">@Question.Id</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Quize Id</label>
+        <div class="col-sm-8">
+          <label type="text" readonly class="form-control-plaintext">@(Question.Quize?.Id)</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Quize Name</label>
+        <div class="col-sm-8">
+          <label type="text" readonly class="form-control-plaintext">@(Question.Quize?.Name)</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Question text</label>
+        <div class="col-sm-8">
+          <label type="text" class="form-control-plaintext">@Question.Text</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Points</label>
+        <div class="col-sm-8">
+          <label type="text" class="form-control-plaintext">@Question.Points</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Question time limit</label>
+        <div class="col-sm-8">
+          <label type="text" class="form-control-plaintext">@Question.TimeLimitSeconds</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Is open question</label>
+        <div class="col-sm-8">
+          <input type="checkbox" readonly="readonly" class="form-control-plaintext" checked="@Question.IsOpenQuestion">
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Question has correct answer</label>
+        <div class="col-sm-8">
+          <input type="checkbox" readonly="readonly" class="form-control-plaintext" checked="@Question.HasCorrectAnswer">
+        </div>
+      </div>
+
+      @*<div class="form-group row">
+          <label class="col-sm-4 col-form-label">Questions count </label>
+          <div class="col-sm-8">
+            <label type="text" class="form-control-plaintext">@Question.Questions?.Count</label>
+          </div>
+        </div>*@
+
+      @*<div class="form-group row">
+          <label class="col-sm-4 col-form-label">Smoker</label>
+          <div class="col-sm-8">
+
+            @if (Quize.Smoker)
+            {
+              <label type="text" readonly class="form-control-plaintext">Yes</label>
+            }
+            else
+            {
+              <label type="text" readonly class="form-control-plaintext">No</label>
+
+            }
+          </div>
+        </div>*@
+
+    </div>
+  </div>
+</div>

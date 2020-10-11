@@ -3,7 +3,7 @@ using Johoot.Workshop.UI.QuizeCrm.ViewModels;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace Johoot.QuizeCrm.Pages
+namespace Johoot.Workshop.QuizeCrm.Pages
 {
   public class QuizeDetailBase : ComponentBase
   {

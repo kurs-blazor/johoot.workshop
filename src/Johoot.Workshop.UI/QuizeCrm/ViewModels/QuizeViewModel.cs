@@ -10,6 +10,8 @@ namespace Johoot.Workshop.UI.QuizeCrm.ViewModels
     [Required]
     [MinLength(1)]
     public string Name { get; set; }
+    [Required]
+    [MinLength(1)]
     public string Description { get; set; }
     public List<Question> Questions { get; set; }
   }

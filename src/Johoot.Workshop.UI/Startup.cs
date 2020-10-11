@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using Johoot.Workshop.Configs;
+using Johoot.Workshop.Services;
 using Johoot.Workshop.UI.QuizeCrm.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Johoot.Workshop.UI
 {
@@ -28,9 +26,9 @@ namespace Johoot.Workshop.UI
     {
       services.AddRazorPages();
       services.AddServerSideBlazor();
-      var host = new Uri("https://localhost:44373");  
-      services.AddHttpClient<IQuizeService, QuizeService>(
-        client =>client.BaseAddress = new Uri(host, "QuizesDefinition"));
+      services.AddAutoMapper(typeof(MapperProfile));
+
+      InitializeHttpClients(services);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +55,15 @@ namespace Johoot.Workshop.UI
         endpoints.MapBlazorHub();
         endpoints.MapFallbackToPage("/_Host");
       });
+    }
+
+    private static void InitializeHttpClients(IServiceCollection services)
+    {
+      var host = new Uri("https://localhost:44373");
+      services.AddHttpClient<IQuizeService, QuizeService>(
+        client => client.BaseAddress = new Uri(host, "QuizesDefinition"));
+      services.AddHttpClient<IQuestionService, QuestionService>(
+        client => client.BaseAddress = new Uri(host, "QuestionsDefinition"));
     }
   }
 }

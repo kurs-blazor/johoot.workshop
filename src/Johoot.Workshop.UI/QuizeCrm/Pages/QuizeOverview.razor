@@ -34,9 +34,13 @@
               <a href="@($"quizeedit/{quize.Id}")" class="btn btn-primary table-btn">
                 <i class="fas fa-edit"></i>
               </a>
+              <a href="@($"questionoverview/{quize.Id}")" class="btn btn-primary table-btn">
+                Questions
+              </a>
             </td>
           </tr>
         }
       </tbody>
     </table>
   }
+<button @onclick="@CreateQuize" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>

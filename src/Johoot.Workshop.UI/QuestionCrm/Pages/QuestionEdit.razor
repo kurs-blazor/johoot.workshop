@@ -1,0 +1,67 @@
+﻿@page "/questionedit/{quizeId:long}/{questionId:long}"
+@page "/questionedit/{questionId:long}"
+@inherits QuestionEditBase
+
+<div class="col-12 row">
+  <div class="col-11">
+    @if (!Saved)
+    {
+      @if (Question.Id > 0)
+      {
+        <h1 class="page-title">Details for @Question?.Id </h1>
+      }
+      else
+      {
+        <h1 class="page-title">Create new Quize</h1>
+      }
+      <div class="alert @StatusClass">@Message</div>
+
+      <EditForm Model="@Question" OnValidSubmit="@HandleValidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group row">
+          <label for="lastName" class="col-sm-3">Text: </label>
+          <InputTextArea id="lastName" @bind-Value="@Question.Text" class="form-control col-sm-8" placeholder="Enter name"></InputTextArea>
+          <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Question.Text)" />
+        </div>
+        <div class="form-group row">
+          <label for="firstName" class="col-sm-3">Points: </label>
+          <InputNumber id="firstName" class="form-control col-sm-8" @bind-Value="@Question.Points" placeholder="Enter description"></InputNumber>
+          <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Question.Points)" />
+        </div>
+        <div class="form-group row">
+          <label for="firstName" class="col-sm-3">Time limit in seconds: </label>
+          <InputNumber id="firstName" class="form-control col-sm-8" @bind-Value="@Question.TimeLimitSeconds" placeholder="Enter description"></InputNumber>
+          <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Question.TimeLimitSeconds)" />
+        </div>
+        <div class="form-group row">
+          <label for="firstName" class="col-sm-3">Is open question: </label>
+          <InputCheckbox id="firstName" class="form-control col-sm-8" @bind-Value="@Question.IsOpenQuestion" placeholder="Enter description"></InputCheckbox>
+          <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Question.IsOpenQuestion)" />
+        </div>
+        <div class="form-group row">
+          <label for="firstName" class="col-sm-3">Has correct Answer: </label>
+          <InputCheckbox id="firstName" class="form-control col-sm-8" @bind-Value="@Question.HasCorrectAnswer" placeholder="Enter description"></InputCheckbox>
+          <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Question.HasCorrectAnswer)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary edit-btn">Save</button>
+
+        @*@if (Quize.Id> 0)
+          {
+            <a class="btn btn-danger" @onclick="@DeleteQuzie">
+              Delete
+            </a>
+          }*@
+
+      </EditForm>
+    }
+    else
+    {
+      <div class="alert @StatusClass">@Message</div>
+      <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
+    }
+  </div>
+</div>

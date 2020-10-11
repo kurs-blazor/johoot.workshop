@@ -8,7 +8,7 @@ namespace Johoot.Workshop.Infrastructure.Domain
   {
     Task<ICollection<Question>> GetAll(bool includeAll = true);
 
-    Task<Question> FindById(long id);
+    Task<Question> FindById(long id, bool includeAll = true);
 
     Task<IList<Question>> FindByQuizeId(long quizeId, bool includeAll = true);
 

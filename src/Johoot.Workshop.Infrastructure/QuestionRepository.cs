@@ -22,9 +22,21 @@ namespace Johoot.Workshop.Infrastructure
       return await base.AddAsyn(item);
     }
 
-    public async Task<Question> FindById(long questionId)
+    public async Task<Question> FindById(long questionId, bool includeAll = true)
     {
-      return await base.FindAsync(q => q.Id == questionId);
+      if (includeAll)
+      {
+        return
+           await _joContext
+           .Questions
+           .Include(q => q.Quize)
+           .Include(q => q.Answers)
+           .SingleOrDefaultAsync(q => q.Id == questionId);
+      }
+      else
+      {
+        return await base.FindAsync(q => q.Id == questionId);
+      }
     }
 
     public async Task<Question> Update(Question item, long id)

@@ -1,0 +1,48 @@
+﻿@page "/questionoverview/{quizeId:long}"
+@page "/questionoverview"
+@inherits QuestionOverviewBase
+
+
+<h1 class="page-title">All quizes</h1>
+
+@if (Questions == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Question Text</th>
+        <th>Points</th>
+        <th>Time Limit Seconds</th>
+        <th>Has Correct Answer</th>
+        <th>Is Open Question</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var q in Questions)
+      {
+        <tr>
+          <td></td>
+          <td>@q.Text</td>
+          <td>@q.Points</td>
+          <td>@(q.TimeLimitSeconds)</td>
+          <td>@q.HasCorrectAnswer</td>
+          <td>@q.IsOpenQuestion</td>
+          <td>
+            <a href="@($"questiondetail/{q.Id}")" class="btn btn-primary table-btn">
+              <i class="fas fa-info-circle"></i>
+            </a>
+            <a href="@($"questionedit/{q.Id}")" class="btn btn-primary table-btn">
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
